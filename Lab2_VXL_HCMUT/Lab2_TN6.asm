@@ -1,0 +1,52 @@
+ORG 		2000H
+MAIN:
+LOOP:		MOV 	R2,#0
+			MOV 	R1,#7    
+QUET:		MOV 	A,R2
+			MOV 	DPTR,#COT
+			MOVC 	A,@A+DPTR  	
+			MOV 	DPTR,#08000h
+			MOVX 	@DPTR,A
+			
+			MOV		A,R1
+			MOV		DPTR,#ChuB
+			MOVC	A,@A+DPTR
+			MOV 	DPTR,#0A000h
+			MOVX	@DPTR,A
+
+			ACALL	Delay1ms
+			INC		R2
+			DJNZ	R1,QUET
+			
+			MOV 	A, #7 
+			MOV 	DPTR, #COT
+			MOVC 	A,@A+DPTR
+			MOV 	DPTR,#8000H
+			MOVX 	@DPTR,A
+			ACALL 	Delay1ms
+
+			MOV 	A, #0 
+			MOV 	DPTR, #ChuB
+			MOVC 	A, @A+DPTR
+			MOV 	DPTR,#0A000H
+			MOVX 	@DPTR,A
+			ACALL 	Delay1ms
+	
+			SJMP LOOP
+
+	
+	
+			MOV DPTR,#0A000H
+			MOV A,#10101010b
+			MOVX @DPTR,A
+COT:		DB 10000000B, 01000000B, 00100000B, 00010000B, 00001000B,  00000100B, 00000010B, 00000001B
+ChuB:		DB	00h,00h,76h,76h,76h,71h,8FH,0FFh
+Delay1ms:
+			MOV R6,#4;
+LAP1:		MOV R5,#250
+			DJNZ R5,$;
+			DJNZ R6, LAP1;
+	
+			RET
+
+			END
