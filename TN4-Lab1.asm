@@ -1,0 +1,29 @@
+ORG 0000H
+	MAIN :
+	SETB 	P1.0
+	ACALL 	Delay70perIns
+	CLR 	P1.0
+	ACALL 	Delay30perIns
+	SJMP MAIN
+	
+		Delay70perIns:
+		MOV R7,#4
+LAP2:	MOV R6,#175
+LAP1:	MOV R5,#250
+		DJNZ R5,$                
+		DJNZ R6,LAP1
+		DJNZ R7,LAP2
+		
+	RET
+	
+		Delay30perIns:
+		MOV R4,#2
+LAP4:	MOV R3,#150
+LAP3:	MOV R2,#250
+		DJNZ R2,$
+		DJNZ R3,LAP3
+		DJNZ R4,LAP4
+		RET
+		END
+
+

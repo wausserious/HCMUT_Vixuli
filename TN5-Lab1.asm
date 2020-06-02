@@ -1,0 +1,18 @@
+ORG 0000H
+MAIN:			
+		SETB P1.0
+LAP:	SETB P1.1
+		ACALL Delay1sIns
+		CLR P1.1
+		ACALL Delay1sIns
+		CPL P1.0
+		SJMP LAP	
+Delay1sIns:	
+		MOV R5, #4	 ;
+LP2:	MOV R6, #250 ;
+LP1: 	MOV R7, #250
+		DJNZ	R7,$ ;
+		DJNZ	R6,LP1;
+		DJNZ	R5,LP2 ;
+		RET
+		END
